@@ -9,6 +9,7 @@ import Explore from "./pages/Explore";
 import Events from "./pages/Events";
 import Services from "./pages/Services";
 import Profile from "./pages/Profile";
+import SevaBooking from "./pages/SevaBooking";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/explore" element={<Explore />} />
             <Route path="/events" element={<Events />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/services/seva" element={<SevaBooking />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="*" element={<NotFound />} />

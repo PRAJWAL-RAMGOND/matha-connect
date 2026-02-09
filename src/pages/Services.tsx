@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { HandHeart, Bed, BookOpen, CreditCard } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import templeBell from "@/assets/temple-bell.jpg";
 
 const sevas = [
@@ -17,6 +18,7 @@ const services = [
 ];
 
 const Services = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <div className="relative overflow-hidden">
@@ -36,6 +38,7 @@ const Services = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
+            onClick={() => navigate(svc.route)}
             className="flex flex-col items-center gap-2 rounded-xl bg-card p-4 shadow-temple transition-transform hover:scale-[1.02] active:scale-95"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-saffron">

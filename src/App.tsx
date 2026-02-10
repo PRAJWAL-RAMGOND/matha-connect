@@ -11,6 +11,8 @@ import Services from "./pages/Services";
 import Profile from "./pages/Profile";
 import SevaBooking from "./pages/SevaBooking";
 import RoomBooking from "./pages/RoomBooking";
+import GuruParampara from "./pages/GuruParampara";
+import GuruDetail from "./pages/GuruDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +27,8 @@ const App = () => (
           <Route element={<AppLayout />}>
             <Route path="/" element={<Index />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/explore/guru-parampara" element={<GuruParampara />} />
+            <Route path="/explore/guru/:guruId" element={<GuruDetail />} />
             <Route path="/events" element={<Events />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/seva" element={<SevaBooking />} />

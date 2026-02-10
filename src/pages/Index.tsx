@@ -4,6 +4,9 @@ import SearchBar from "@/components/SearchBar";
 import heroBanner from "@/assets/hero-banner.jpg";
 import templeAmbiance from "@/assets/temple-ambiance.jpg";
 import templeBell from "@/assets/temple-bell.jpg";
+import mathaLogo from "@/assets/matha-logo.png";
+import swamijiVishwothama from "@/assets/swamiji-vishwothama.png";
+import swamijiVishwavallabha from "@/assets/swamiji-vishwavallabha.png";
 
 const newsItems = [
   { id: 1, title: "Chaturmasya Vrata commences at Sode Matha", image: templeAmbiance },
@@ -51,13 +54,16 @@ const Index = () => {
         </div>
         <div className="relative px-4 pb-8 pt-12">
           <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h1 className="font-display text-xl font-bold text-maroon-foreground">
-                ಶ್ರೀ ವಾದಿರಾಜ ಮಠ
-              </h1>
-              <p className="font-display text-xs text-maroon-foreground/80">
-                Sode Sri Vadiraja Matha
-              </p>
+            <div className="flex items-center gap-3">
+              <img src={mathaLogo} alt="Sode Sri Vadiraja Matha Logo" className="h-12 w-12 object-contain" />
+              <div>
+                <h1 className="font-display text-xl font-bold text-maroon-foreground">
+                  ಶ್ರೀ ವಾದಿರಾಜ ಮಠ
+                </h1>
+                <p className="font-display text-xs text-maroon-foreground/80">
+                  Sode Sri Vadiraja Matha
+                </p>
+              </div>
             </div>
             <button className="relative rounded-full bg-card/20 p-2 backdrop-blur-sm transition-colors hover:bg-card/40">
               <Bell size={20} className="text-maroon-foreground" />
@@ -111,7 +117,7 @@ const Index = () => {
         <div className="grid grid-cols-2 gap-3">
           <div className="overflow-hidden rounded-xl bg-card shadow-temple">
             <div className="aspect-[3/4] bg-secondary">
-              <img src={templeAmbiance} alt="Sri Sri Vishwothama Theertha Swamiji" className="h-full w-full object-cover" />
+              <img src={swamijiVishwothama} alt="Sri Sri Vishwothama Theertha Swamiji" className="h-full w-full object-cover" />
             </div>
             <div className="p-3 text-center">
               <p className="font-display text-xs font-semibold text-foreground leading-tight">
@@ -122,7 +128,7 @@ const Index = () => {
           </div>
           <div className="overflow-hidden rounded-xl bg-card shadow-temple">
             <div className="aspect-[3/4] bg-secondary">
-              <img src={templeBell} alt="Sri Sri Vishwavallabha Theertha Swamiji" className="h-full w-full object-cover" />
+              <img src={swamijiVishwavallabha} alt="Sri Sri Vishwavallabha Theertha Swamiji" className="h-full w-full object-cover" />
             </div>
             <div className="p-3 text-center">
               <p className="font-display text-xs font-semibold text-foreground leading-tight">

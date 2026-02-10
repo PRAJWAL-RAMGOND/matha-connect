@@ -111,30 +111,24 @@ const Index = () => {
         variants={fadeUp}
         className="mt-6 px-4"
       >
-        <h2 className="mb-3 font-display text-lg font-semibold text-foreground">
-          Peetadhipathigalu
-        </h2>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="overflow-hidden rounded-xl bg-card shadow-temple">
-            <div className="aspect-[3/4] bg-secondary">
-              <img src={swamijiVishwothama} alt="Sri Sri Vishwothama Theertha Swamiji" className="h-full w-full object-cover" />
-            </div>
-            <div className="p-3 text-center">
-              <p className="font-display text-xs font-semibold text-foreground leading-tight">
-                Sri Sri Vishwothama Theertha Swamiji
+        <div className="flex flex-col items-center">
+          <img src={mathaLogo} alt="Sode Sri Vadiraja Matha Logo" className="mb-4 h-24 w-24 object-contain" />
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 overflow-hidden rounded-full border-2 border-saffron shadow-temple">
+                <img src={swamijiVishwothama} alt="Sri Sri Vishwothama Theertha Swamiji" className="h-full w-full object-cover" />
+              </div>
+              <p className="mt-2 text-center font-display text-xs font-semibold text-foreground leading-tight">
+                Sri Sri Vishwothama<br />Theertha Swamiji
               </p>
-              <p className="mt-0.5 text-[10px] text-muted-foreground">Peetadhipathi</p>
             </div>
-          </div>
-          <div className="overflow-hidden rounded-xl bg-card shadow-temple">
-            <div className="aspect-[3/4] bg-secondary">
-              <img src={swamijiVishwavallabha} alt="Sri Sri Vishwavallabha Theertha Swamiji" className="h-full w-full object-cover" />
-            </div>
-            <div className="p-3 text-center">
-              <p className="font-display text-xs font-semibold text-foreground leading-tight">
-                Sri Sri Vishwavallabha Theertha Swamiji
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 overflow-hidden rounded-full border-2 border-saffron shadow-temple">
+                <img src={swamijiVishwavallabha} alt="Sri Sri Vishwavallabha Theertha Swamiji" className="h-full w-full object-cover" />
+              </div>
+              <p className="mt-2 text-center font-display text-xs font-semibold text-foreground leading-tight">
+                Sri Sri Vishwavallabha<br />Theertha Swamiji
               </p>
-              <p className="mt-0.5 text-[10px] text-muted-foreground">Peetadhipathi</p>
             </div>
           </div>
         </div>

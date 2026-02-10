@@ -21,12 +21,7 @@ const announcements = [
 ];
 
 const timings = [
-  { pooja: "Kakada Aarati", time: "5:30 AM" },
-  { pooja: "Panchamruta Abhisheka", time: "7:00 AM" },
-  { pooja: "Maha Pooja", time: "9:30 AM" },
-  { pooja: "Madhyahna Pooja", time: "12:30 PM" },
-  { pooja: "Chamara Seva", time: "6:30 PM" },
-  { pooja: "Ratri Pooja", time: "8:00 PM" },
+  { location: "Sode", darshan: "5:00 a.m. to 8:30 a.m.", prasada: "Noon 11:30 a.m." },
 ];
 
 const socialLinks = [
@@ -179,20 +174,27 @@ const Index = () => {
         className="mt-6 px-4"
       >
         <h2 className="mb-3 font-display text-lg font-semibold text-foreground">
-          Darshana & Pooja Timings
+          Darshana & Prasada Timings
         </h2>
         <div className="overflow-hidden rounded-xl bg-card shadow-temple">
-          <div className="bg-gradient-maroon px-4 py-2">
-            <p className="text-xs font-semibold text-maroon-foreground">Daily Schedule</p>
-          </div>
-          <div className="divide-y divide-border">
-            {timings.map((item, i) => (
-              <div key={i} className="flex items-center justify-between px-4 py-2.5">
-                <span className="text-sm text-foreground">{item.pooja}</span>
-                <span className="text-sm font-semibold text-primary">{item.time}</span>
-              </div>
-            ))}
-          </div>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gradient-maroon text-maroon-foreground">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Location</th>
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Darshan</th>
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Prasada</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {timings.map((item, i) => (
+                <tr key={i}>
+                  <td className="px-4 py-2.5 font-medium text-foreground">{item.location}</td>
+                  <td className="px-4 py-2.5 text-foreground">{item.darshan}</td>
+                  <td className="px-4 py-2.5 text-foreground">{item.prasada}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </motion.section>
 

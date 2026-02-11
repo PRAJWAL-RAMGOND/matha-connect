@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Bell, Instagram, Facebook, Youtube, MessageCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "@/components/SearchBar";
 import heroBanner from "@/assets/hero-banner.jpg";
 import templeAmbiance from "@/assets/temple-ambiance.jpg";
@@ -44,6 +45,8 @@ const fadeUp = {
 };
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -65,10 +68,13 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <button className="relative rounded-full bg-card/20 p-2 backdrop-blur-sm transition-colors hover:bg-card/40">
+            <button
+              onClick={() => navigate("/notifications")}
+              className="relative rounded-full bg-card/20 p-2 backdrop-blur-sm transition-colors hover:bg-card/40"
+            >
               <Bell size={20} className="text-maroon-foreground" />
               <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-saffron text-[9px] font-bold text-saffron-foreground">
-                3
+                4
               </span>
             </button>
           </div>

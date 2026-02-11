@@ -5,11 +5,11 @@ import SearchBar from "@/components/SearchBar";
 
 const sections = [
   { icon: Users, label: "Guru Parampara", desc: "History & lineage of the Matha", color: "bg-gradient-maroon", route: "/explore/guru-parampara" },
-  { icon: Image, label: "Gallery", desc: "Photos & videos from events", color: "bg-gradient-saffron", route: null },
-  { icon: Scroll, label: "Publications", desc: "Pravachana, books & references", color: "bg-gradient-maroon", route: null },
-  { icon: MapPin, label: "Branches", desc: "Find Matha branches near you", color: "bg-gradient-saffron", route: null },
-  { icon: Trophy, label: "Youth Quiz", desc: "Test your knowledge of Siddhanta", color: "bg-gradient-maroon", route: null },
-  { icon: BookOpen, label: "Panchanga", desc: "Tithinirnaya Panchanga", color: "bg-gradient-saffron", route: null },
+  { icon: Image, label: "Gallery", desc: "Photos & videos from events", color: "bg-gradient-saffron", route: "/explore/gallery" },
+  { icon: Scroll, label: "Publications", desc: "Pravachana, books & references", color: "bg-gradient-maroon", route: "/explore/publications" },
+  { icon: MapPin, label: "Branches", desc: "Find Matha branches near you", color: "bg-gradient-saffron", route: "/explore/branches" },
+  { icon: Trophy, label: "Youth Quiz", desc: "Test your knowledge of Siddhanta", color: "bg-gradient-maroon", route: "/explore/quiz" },
+  { icon: BookOpen, label: "Panchanga", desc: "Tithinirnaya Panchanga", color: "bg-gradient-saffron", route: "/explore/panchanga" },
 ];
 
 const Explore = () => {

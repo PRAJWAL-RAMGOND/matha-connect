@@ -117,6 +117,52 @@ seva_platform/
 └── README.md
 ```
 
+```
+
+### 4.2 `seva_ui/`
+
+```text
+seva_ui/
+├── src/
+│   ├── components/          # Shared UI components
+│   ├── pages/               # Route-based pages
+│   ├── layouts/             # App layouts
+│   ├── services/            # API clients
+│   ├── hooks/               # Custom hooks
+│   ├── utils/               # Helper utilities
+│   └── assets/              # Static assets
+├── public/
+├── .env
+├── package.json
+└── tsconfig.json
+```
+
+### 4.3 `seva_platform/`
+
+```text
+seva_platform/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/seva/platform/
+│   │   │       ├── controller/     # REST controllers
+│   │   │       ├── service/        # Business logic
+│   │   │       ├── repository/     # Database repositories
+│   │   │       ├── model/          # Entity models
+│   │   │       ├── dto/            # Request/response DTOs
+│   │   │       ├── security/       # Authentication & security
+│   │   │       └── config/         # Configuration classes
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       ├── application-dev.yml
+│   │       ├── application-prod.yml
+│   │       └── db/migration/       # Flyway migrations
+│   └── test/
+├── Dockerfile
+├── pom.xml / build.gradle
+└── README.md
+```
+
 ---
 
 ## 5) Recommended Technology Stack (Latest Stable)
@@ -144,6 +190,74 @@ Current implemented modules/pages include:
 - Services (Seva Booking, Room Booking)
 - Profile, Notifications
 - Login and Signup routes
+
+> This acts as the `seva_ui` seed implementation and can be extracted into `/seva_ui` in a full mono-repo setup.
+
+---
+
+## 7) Local Setup (Current Web Starter)
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+
+### Install and Run
+
+```bash
+npm install
+npm run dev
+```
+
+### Build and Validate
+
+```bash
+npm run lint
+npm run test
+npm run build
+```
+
+---
+
+## 8) Mandatory Hackathon Submission Artifacts
+
+Please attach/provide links for the following:
+
+1. **Wireframes of UI pages**
+2. **Design & Architecture document**
+3. **Scalable database structure (Schema/ERD)**
+4. **API documentation (Swagger/OpenAPI specs)**
+5. **Cloud-ready deployment model (architecture diagram)**
+
+---
+
+## 9) Engineering Guidelines
+
+- Follow the module/folder conventions defined above.
+- Keep architecture API-first and modular.
+- Use environment-based configuration.
+- Add documentation for every major feature or architectural decision.
+- Ensure lint, tests, and build pass before submission.
+
+
+
+---
+
+## 10) Admin Dashboard (Firebase-backed)
+
+The app includes a web admin panel at `/admin` with support for:
+- Firebase email/password login and role checks
+- section enable/disable controls (hidden from users when off)
+- content CRUD (announcements, media, timings)
+- seva analytics charts (daily/weekly/monthly)
+- user data export (privacy workflows)
+- bulk notifications and volunteer approvals
+
+Configure Firebase in `.env` (see `.env.example`):
+
+```bash
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_PROJECT_ID=...
+```
 
 > This acts as the `seva_ui` seed implementation and can be extracted into `/seva_ui` in a full mono-repo setup.
 

@@ -8,6 +8,7 @@ import templeBell from "@/assets/temple-bell.jpg";
 import mathaLogo from "@/assets/matha-logo.png";
 import swamijiVishwothama from "@/assets/swamiji-vishwothama.png";
 import swamijiVishwavallabha from "@/assets/swamiji-vishwavallabha.png";
+import { useSectionVisibility } from "@/hooks/useSectionVisibility";
 
 const newsItems = [
   { id: 1, title: "Chaturmasya Vrata commences at Sode Matha", image: templeAmbiance },
@@ -36,10 +37,10 @@ const panchangaHighlights = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "#", color: "text-pink-600" },
-  { icon: Facebook, label: "Facebook", href: "#", color: "text-blue-600" },
-  { icon: Youtube, label: "YouTube", href: "#", color: "text-red-600" },
-  { icon: MessageCircle, label: "WhatsApp", href: "#", color: "text-green-600" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/", color: "text-pink-600" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/", color: "text-blue-600" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/", color: "text-red-600" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/918202521975", color: "text-green-600" },
 ];
 
 const fadeUp = {
@@ -55,6 +56,7 @@ const sectionTitleClass = "mb-3 font-display text-lg font-semibold text-foregrou
 
 const Index = () => {
   const navigate = useNavigate();
+  const visibility = useSectionVisibility();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-accent/20 pb-4">
@@ -68,6 +70,23 @@ const Index = () => {
           <div className="absolute -right-8 -top-8 h-36 w-36 rounded-full bg-saffron/30 blur-2xl" />
           <div className="absolute -left-12 bottom-0 h-28 w-28 rounded-full bg-card/20 blur-2xl" />
 
+      {/* Announcements Carousel */}
+      {visibility["home.announcements"] ? <motion.section
+        initial="hidden"
+        animate="visible"
+        custom={0}
+        variants={fadeUp}
+        className="mt-6 px-4"
+      >
+        <div className="overflow-hidden rounded-xl bg-gradient-saffron p-3">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+            {announcements.map((text, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 rounded-lg bg-card/90 px-4 py-2.5 text-xs font-medium text-foreground shadow-sm"
+                style={{ minWidth: "280px" }}
+              >
+                {text}
           <div className="relative px-4 pb-10 pt-12">
             <div className="mb-5 flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -105,6 +124,26 @@ const Index = () => {
         <div className="relative z-10 -mt-5 px-2">
           <SearchBar />
         </div>
+      </motion.section> : null}
+
+      {/* Swamiji Section */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        custom={1}
+        variants={fadeUp}
+        className="mt-6 px-4"
+      >
+        <div className="flex flex-col items-center">
+          <img src={mathaLogo} alt="Sode Sri Vadiraja Matha Logo" className="mb-4 h-24 w-24 object-contain" />
+          <div className="grid grid-cols-2 gap-4 w-full">
+            <div className="flex flex-col items-center">
+              <div className="h-32 w-32 overflow-hidden rounded-full border-2 border-saffron shadow-temple">
+                <img src={swamijiVishwothama} alt="Sri Sri Vishwothama Theertha Swamiji" className="h-full w-full object-cover" />
+              </div>
+              <p className="mt-2 text-center font-display text-xs font-semibold text-foreground leading-tight">
+                Sri Sri Vishwothama<br />Theertha Swamiji
+              </p>
 
         {/* Announcements Carousel */}
         <motion.section
@@ -153,6 +192,29 @@ const Index = () => {
               ))}
             </div>
           </div>
+        </div>
+      </motion.section>
+
+      {/* News */}
+      {visibility["home.news"] ? <motion.section
+        initial="hidden"
+        animate="visible"
+        custom={2}
+        variants={fadeUp}
+        className="mt-6 px-4"
+      >
+        <h2 className="mb-3 font-display text-lg font-semibold text-foreground">
+          Latest News
+        </h2>
+        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          {newsItems.map((item) => (
+            <div
+              key={item.id}
+              className="flex-shrink-0 overflow-hidden rounded-xl bg-card shadow-temple"
+              style={{ width: "200px" }}
+            >
+              <div className="aspect-video">
+                <img src={item.image} alt={item.title} className="h-full w-full object-cover" />
         </motion.section>
 
         {/* Swamiji Section */}
@@ -189,6 +251,36 @@ const Index = () => {
                 </p>
               </div>
             </div>
+          ))}
+        </div>
+      </motion.section> : null}
+
+      {/* Darshana & Prasada Timings */}
+      {visibility["home.timings"] ? <motion.section
+        initial="hidden"
+        animate="visible"
+        custom={3}
+        variants={fadeUp}
+        className="mt-6 px-4"
+      >
+        <h2 className="mb-3 font-display text-lg font-semibold text-foreground">
+          Darshana & Prasada Timings
+        </h2>
+        <div className="overflow-hidden rounded-xl bg-card shadow-temple">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-gradient-maroon text-maroon-foreground">
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Location</th>
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Darshan</th>
+                <th className="px-4 py-2.5 text-left text-xs font-semibold">Prasada</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {timings.map((item, i) => (
+                <tr key={i}>
+                  <td className="px-4 py-2.5 font-medium text-foreground">{item.location}</td>
+                  <td className="px-4 py-2.5 text-foreground">{item.darshan}</td>
+                  <td className="px-4 py-2.5 text-foreground">{item.prasada}</td>
           </div>
         </motion.section>
 
@@ -275,6 +367,39 @@ const Index = () => {
                   <span className="text-[10px] text-muted-foreground">{link.label}</span>
                 </a>
               ))}
+            </tbody>
+          </table>
+        </div>
+      </motion.section> : null}
+
+      {/* Social Media */}
+      <motion.section
+        initial="hidden"
+        animate="visible"
+        custom={4}
+        variants={fadeUp}
+        className="mt-6 mb-6 px-4"
+      >
+        <h2 className="mb-3 font-display text-lg font-semibold text-foreground">
+          Connect With Us
+        </h2>
+        <div className="flex justify-center gap-6">
+          {socialLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-1 transition-transform hover:scale-110"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-card shadow-temple">
+                <link.icon size={22} className={link.color} />
+              </div>
+              <span className="text-[10px] text-muted-foreground">{link.label}</span>
+            </a>
+          ))}
+        </div>
+      </motion.section>
             </div>
           </div>
         </motion.section>

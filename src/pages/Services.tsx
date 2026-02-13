@@ -3,6 +3,7 @@ import { HandHeart, Bed, BookOpen, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import templeBell from "@/assets/temple-bell.jpg";
 import { useToast } from "@/hooks/use-toast";
+import { useSectionVisibility } from "@/hooks/useSectionVisibility";
 
 const sevas = [
   { name: "ಅನ್ನದಾನ ಸಂತರ್ಪಣೆ", price: "₹5,001", desc: "One-day annadana seva" },
@@ -21,6 +22,13 @@ const services = [
 const Services = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const visibility = useSectionVisibility();
+
+  const visibleServices = services.filter((service) => {
+    if (service.route === "/services/seva") return visibility["services.seva"];
+    if (service.route === "/services/room") return visibility["services.room"];
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,6 +42,7 @@ const Services = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3 px-4">
+        {visibleServices.map((service, index) => (
         {services.map((service, index) => (
           <motion.button
             key={service.label}
@@ -62,6 +71,7 @@ const Services = () => {
       <div className="mt-6 px-4 pb-6">
         <h2 className="mb-3 font-display text-lg font-semibold text-foreground">Popular Sevas</h2>
         <div className="space-y-2">
+          {(visibility["services.seva"] ? sevas : []).map((seva, index) => (
           {sevas.map((seva, index) => (
             <motion.div
               key={seva.name}

@@ -22,10 +22,15 @@ import Notifications from "./pages/Notifications";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import AdminPanel from "./pages/AdminPanel";
+import { getSectionVisibility } from "./lib/sectionVisibility";
 
 const queryClient = new QueryClient();
 
-const App = () => (
+const App = () => {
+  const sectionVisibility = getSectionVisibility();
+
+  return (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
@@ -39,23 +44,25 @@ const App = () => (
             <Route path="/explore/guru/:guruId" element={<GuruDetail />} />
             <Route path="/explore/gallery" element={<Gallery />} />
             <Route path="/explore/branches" element={<Branches />} />
-            <Route path="/explore/panchanga" element={<PanchangaPage />} />
-            <Route path="/explore/quiz" element={<YouthQuiz />} />
+            <Route path="/explore/panchanga" element={sectionVisibility["explore.panchanga"] ? <PanchangaPage /> : <NotFound />} />
+            <Route path="/explore/quiz" element={sectionVisibility["explore.quiz"] ? <YouthQuiz /> : <NotFound />} />
             <Route path="/explore/publications" element={<Publications />} />
             <Route path="/events" element={<Events />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/seva" element={<SevaBooking />} />
-            <Route path="/services/room" element={<RoomBooking />} />
+            <Route path="/services/seva" element={sectionVisibility["services.seva"] ? <SevaBooking /> : <NotFound />} />
+            <Route path="/services/room" element={sectionVisibility["services.room"] ? <RoomBooking /> : <NotFound />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-);
+  );
+};
 
 export default App;

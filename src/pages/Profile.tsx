@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { User, Bell, Heart, LogOut, ChevronRight, Shield, Settings2 } from "lucide-react";
 import { User, Bell, Heart, LogOut, ChevronRight, Shield } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,6 +8,7 @@ const profileMenu = [
   { icon: Bell, label: "Notifications", desc: "Manage push notification preferences" },
   { icon: Heart, label: "Volunteer", desc: "Sign up for Matha seva activities" },
   { icon: Shield, label: "Privacy & Consent", desc: "Manage your data preferences" },
+  { icon: Settings2, label: "Admin Panel", desc: "Backend data dashboard and controls", route: "/admin" },
 ];
 
 const Profile = () => {
@@ -51,6 +53,7 @@ const Profile = () => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.06 }}
+              onClick={() => item.route && navigate(item.route)}
               className="flex w-full items-center gap-3 rounded-xl bg-card p-4 shadow-temple transition-transform hover:scale-[1.01]"
             >
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-secondary">

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { User, Bell, Heart, LogOut, ChevronRight, Shield } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const profileMenu = [
   { icon: User, label: "Edit Profile", desc: "Name, mobile, email, address" },
@@ -9,6 +10,8 @@ const profileMenu = [
 ];
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-maroon px-4 pb-12 pt-12">
@@ -18,19 +21,26 @@ const Profile = () => {
           </div>
           <div>
             <h1 className="font-display text-lg font-bold text-maroon-foreground">Devotee</h1>
-            <p className="text-xs text-maroon-foreground/70">Login to access your profile</p>
+            <p className="text-xs text-maroon-foreground/70">Login or create an account to access your profile</p>
           </div>
         </div>
       </div>
 
-      <div className="-mt-4 mx-4">
+      <div className="-mt-4 mx-4 space-y-2">
         <motion.button
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
+          onClick={() => navigate("/login")}
           className="w-full rounded-xl bg-gradient-saffron p-4 text-center font-display text-sm font-semibold text-saffron-foreground shadow-temple transition-transform hover:scale-[1.01]"
         >
           Login with Mobile Number
         </motion.button>
+        <Link
+          to="/signup"
+          className="inline-flex w-full items-center justify-center rounded-xl border border-border bg-card p-3 text-sm font-medium text-foreground shadow-temple transition-colors hover:bg-secondary"
+        >
+          Create a new account
+        </Link>
       </div>
 
       <div className="mt-6 px-4 pb-6">

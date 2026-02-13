@@ -1,73 +1,194 @@
-# Welcome to your Lovable project
+# Hackathon-starter (Seva Platform)
 
-## Project info
+Hackathon Starter Repository for the **Seva Platform**.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Seva Platform is a scalable full-stack solution designed for:
+- mobile users,
+- web users, and
+- backend service integrations.
 
-## How can I edit this code?
+This repository serves as a **starter blueprint** and implementation baseline. It defines:
+- platform scope,
+- architecture and boundaries,
+- recommended technology stack,
+- directory conventions to be followed by all teams,
+- required hackathon submission artifacts.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 1) Platform Scope
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+The target platform consists of:
+- **Seva Mobile App** (Android + iOS)
+- **Seva Web App** (browser access)
+- **Seva Backend Platform** (APIs, business rules, persistence)
 
-Changes made via Lovable will be committed automatically to this repo.
+All client applications must communicate only through secured APIs.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 2) Repository Structure (Target Standard)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```text
+.
+├── seva_mobile/        # React Native mobile application
+├── seva_ui/            # Web UI application (React or Angular)
+├── seva_platform/      # Backend platform (Java + Spring Boot)
+└── README.md           # Project documentation
+```
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 3) High-Level Architecture
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+> Clients do not communicate with database services directly.
 
-# Step 3: Install the necessary dependencies.
-npm i
+```text
+Mobile App (React Native) ──┐
+                            ├──> Backend APIs (Spring Boot) ───> Database (MySQL 8.x)
+Web UI (React / Angular) ───┘
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+---
+
+## 4) Module Structure to be Followed
+
+### 4.1 `seva_mobile/`
+
+```text
+seva_mobile/
+├── android/                 # Android native project
+├── ios/                     # iOS native project
+├── src/
+│   ├── components/          # Reusable UI components
+│   ├── screens/             # App screens
+│   ├── navigation/          # Navigation setup
+│   ├── services/            # API services
+│   ├── store/               # State management
+│   ├── hooks/               # Custom hooks
+│   ├── utils/               # Utilities
+│   └── assets/              # Images, fonts, icons
+├── .env
+├── package.json
+└── tsconfig.json
+```
+
+### 4.2 `seva_ui/`
+
+```text
+seva_ui/
+├── src/
+│   ├── components/          # Shared UI components
+│   ├── pages/               # Route-based pages
+│   ├── layouts/             # App layouts
+│   ├── services/            # API clients
+│   ├── hooks/               # Custom hooks
+│   ├── utils/               # Helper utilities
+│   └── assets/              # Static assets
+├── public/
+├── .env
+├── package.json
+└── tsconfig.json
+```
+
+### 4.3 `seva_platform/`
+
+```text
+seva_platform/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/seva/platform/
+│   │   │       ├── controller/     # REST controllers
+│   │   │       ├── service/        # Business logic
+│   │   │       ├── repository/     # Database repositories
+│   │   │       ├── model/          # Entity models
+│   │   │       ├── dto/            # Request/response DTOs
+│   │   │       ├── security/       # Authentication & security
+│   │   │       └── config/         # Configuration classes
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       ├── application-dev.yml
+│   │       ├── application-prod.yml
+│   │       └── db/migration/       # Flyway migrations
+│   └── test/
+├── Dockerfile
+├── pom.xml / build.gradle
+└── README.md
+```
+
+---
+
+## 5) Recommended Technology Stack (Latest Stable)
+
+- **Mobile**: React Native + TypeScript
+- **Web UI**: React + TypeScript (Angular acceptable)
+- **Backend**: Java 21 + Spring Boot 3.x
+- **Database**: MySQL 8.x
+- **API**: REST + OpenAPI (Swagger)
+- **Security**: Spring Security + JWT/OAuth2
+- **Infra / DevOps**: Docker, CI/CD, cloud-ready deployment templates
+
+---
+
+## 6) Current Implementation in This Repository (Web Starter)
+
+This repository currently contains a working **web starter application** built with:
+- Vite
+- React + TypeScript
+- Tailwind CSS + shadcn/ui
+- Framer Motion
+
+Current implemented modules/pages include:
+- Explore, Branches, Panchanga, Youth Quiz
+- Services (Seva Booking, Room Booking)
+- Profile, Notifications
+- Login and Signup routes
+
+> This acts as the `seva_ui` seed implementation and can be extracted into `/seva_ui` in a full mono-repo setup.
+
+---
+
+## 7) Local Setup (Current Web Starter)
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+
+### Install and Run
+
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build and Validate
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run lint
+npm run test
+npm run build
+```
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 8) Mandatory Hackathon Submission Artifacts
 
-## What technologies are used for this project?
+Please attach/provide links for the following:
 
-This project is built with:
+1. **Wireframes of UI pages**
+2. **Design & Architecture document**
+3. **Scalable database structure (Schema/ERD)**
+4. **API documentation (Swagger/OpenAPI specs)**
+5. **Cloud-ready deployment model (architecture diagram)**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 9) Engineering Guidelines
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+- Follow the module/folder conventions defined above.
+- Keep architecture API-first and modular.
+- Use environment-based configuration.
+- Add documentation for every major feature or architectural decision.
+- Ensure lint, tests, and build pass before submission.
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)

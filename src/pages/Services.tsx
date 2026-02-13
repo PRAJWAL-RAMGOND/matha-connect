@@ -2,23 +2,26 @@ import { motion } from "framer-motion";
 import { HandHeart, Bed, BookOpen, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import templeBell from "@/assets/temple-bell.jpg";
+import { useToast } from "@/hooks/use-toast";
 
 const sevas = [
-  { name: "Abhisheka Seva", price: "₹501", desc: "Sacred abhisheka to the Lord" },
-  { name: "Anna Santarpane", price: "₹1,001", desc: "Feeding devotees & community" },
-  { name: "Satyanarayana Pooja", price: "₹2,501", desc: "For prosperity & well-being" },
-  { name: "Tulabhara", price: "Varies", desc: "Offering equivalent weight in grains" },
+  { name: "ಅನ್ನದಾನ ಸಂತರ್ಪಣೆ", price: "₹5,001", desc: "One-day annadana seva" },
+  { name: "ರಥೋತ್ಸವ ಸೇವೆ", price: "₹1,000", desc: "Festival day seva participation" },
+  { name: "ತುಳಸಿ ಅರ್ಚನೆ", price: "₹25", desc: "Daily devotional offering" },
+  { name: "ಗೋದಾನ (ರಕ್ಷಣೆ)", price: "₹3,000", desc: "Support gaushala and care" },
 ];
 
 const services = [
   { icon: HandHeart, label: "Book a Seva", desc: "View and book sevas online", route: "/services/seva" },
   { icon: Bed, label: "Room Booking", desc: "Reserve rooms at the Matha", route: "/services/room" },
-  { icon: BookOpen, label: "Paryaya Sevas", desc: "Special Udupi Paryaya sevas", route: "/services/paryaya" },
-  { icon: CreditCard, label: "Donations", desc: "Contribute to the Matha", route: "/services/donate" },
-];
+  { icon: BookOpen, label: "Paryaya Sevas", desc: "Special Udupi Paryaya sevas", comingSoon: true },
+  { icon: CreditCard, label: "Donations", desc: "Contribute to the Matha", comingSoon: true },
+] as const;
 
 const Services = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   return (
     <div className="min-h-screen bg-background">
       <div className="relative overflow-hidden">
@@ -30,36 +33,41 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Service Categories */}
       <div className="mt-4 grid grid-cols-2 gap-3 px-4">
-        {services.map((svc, i) => (
+        {services.map((service, index) => (
           <motion.button
-            key={svc.label}
+            key={service.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            onClick={() => navigate(svc.route)}
+            transition={{ delay: index * 0.08 }}
+            onClick={() => {
+              if (service.comingSoon) {
+                toast({ title: `${service.label} will be available soon.` });
+                return;
+              }
+              navigate(service.route);
+            }}
             className="flex flex-col items-center gap-2 rounded-xl bg-card p-4 shadow-temple transition-transform hover:scale-[1.02] active:scale-95"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-saffron">
-              <svc.icon size={20} className="text-saffron-foreground" />
+              <service.icon size={20} className="text-saffron-foreground" />
             </div>
-            <span className="font-display text-sm font-semibold text-foreground">{svc.label}</span>
-            <span className="text-[10px] text-muted-foreground text-center">{svc.desc}</span>
+            <span className="font-display text-sm font-semibold text-foreground">{service.label}</span>
+            <span className="text-center text-[10px] text-muted-foreground">{service.desc}</span>
+            {service.comingSoon ? <span className="rounded-full bg-secondary px-2 py-0.5 text-[9px] font-semibold text-muted-foreground">Coming soon</span> : null}
           </motion.button>
         ))}
       </div>
 
-      {/* Popular Sevas */}
       <div className="mt-6 px-4 pb-6">
         <h2 className="mb-3 font-display text-lg font-semibold text-foreground">Popular Sevas</h2>
         <div className="space-y-2">
-          {sevas.map((seva, i) => (
+          {sevas.map((seva, index) => (
             <motion.div
-              key={i}
+              key={seva.name}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.06 }}
+              transition={{ delay: index * 0.06 }}
               className="flex items-center justify-between rounded-xl bg-card p-4 shadow-temple"
             >
               <div>
@@ -68,7 +76,7 @@ const Services = () => {
               </div>
               <div className="flex flex-col items-end gap-1">
                 <span className="text-sm font-bold text-primary">{seva.price}</span>
-                <button className="rounded-full bg-gradient-saffron px-3 py-1 text-[10px] font-semibold text-saffron-foreground transition-transform hover:scale-105">
+                <button onClick={() => navigate("/services/seva")} className="rounded-full bg-gradient-saffron px-3 py-1 text-[10px] font-semibold text-saffron-foreground transition-transform hover:scale-105">
                   Book
                 </button>
               </div>

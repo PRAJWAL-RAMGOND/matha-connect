@@ -1,73 +1,143 @@
-# Welcome to your Lovable project
+# Hackathon-starter (Seva Platform)
 
-## Project info
+Hackathon Starter Repo
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Seva Platform is a modern, scalable, full-stack application designed to serve mobile users, web users, and backend services through a secure and modular architecture.
 
-## How can I edit this code?
+This repository is the **starter blueprint** for the Seva Platform. It defines:
+- What the project is
+- How the repository is organized
+- What technologies (latest stable) should be used
+- The standard directory structure each module must follow
 
-There are several ways of editing your application.
+The platform consists of:
+- A **mobile application** for Android and iOS
+- A **web application** for browser-based access
+- A **backend platform** providing APIs, business logic, and data persistence
 
-**Use Lovable**
+All components communicate through secure REST APIs and follow cloud-ready, production-grade design principles.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## Repository Layout
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```text
+.
+├── seva_mobile/        # React Native mobile application
+├── seva_ui/            # Web UI application (React or Angular)
+├── seva_platform/      # Backend platform (Java + Spring Boot)
+└── README.md           # Project documentation
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## High-Level Architecture
 
-**Use GitHub Codespaces**
+> Both Mobile and Web clients communicate only with the backend APIs (clients do not talk to the database directly).
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```text
+Mobile App (React Native) ──┐
+                            ├──> Backend APIs (Spring Boot) ───> Database (MySQL 8.x)
+Web UI (React / Angular) ───┘
+```
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## Application Project Structure to be Followed
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### `seva_mobile/`
 
-## How can I deploy this project?
+```text
+seva_mobile/
+├── android/                 # Android native project
+├── ios/                     # iOS native project
+├── src/
+│   ├── components/          # Reusable UI components
+│   ├── screens/             # App screens
+│   ├── navigation/          # Navigation setup
+│   ├── services/            # API services
+│   ├── store/               # State management
+│   ├── hooks/               # Custom hooks
+│   ├── utils/               # Utilities
+│   └── assets/              # Images, fonts, icons
+├── .env
+├── package.json
+└── tsconfig.json
+```
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+### `seva_ui/`
 
-## Can I connect a custom domain to my Lovable project?
+```text
+seva_ui/
+├── src/
+│   ├── components/          # Shared UI components
+│   ├── pages/               # Route-based pages
+│   ├── layouts/             # App layouts
+│   ├── services/            # API clients
+│   ├── hooks/               # Custom hooks
+│   ├── utils/               # Helper utilities
+│   └── assets/              # Static assets
+├── public/
+├── .env
+├── package.json
+└── tsconfig.json
+```
 
-Yes, you can!
+### `seva_platform/`
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```text
+seva_platform/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/seva/platform/
+│   │   │       ├── controller/     # REST controllers
+│   │   │       ├── service/        # Business logic
+│   │   │       ├── repository/     # Database repositories
+│   │   │       ├── model/          # Entity models
+│   │   │       ├── dto/            # Request/response DTOs
+│   │   │       ├── security/       # Authentication & security
+│   │   │       └── config/         # Configuration classes
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       ├── application-dev.yml
+│   │       ├── application-prod.yml
+│   │       └── db/migration/       # Flyway migrations
+│   └── test/
+├── Dockerfile
+├── pom.xml / build.gradle
+└── README.md
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## Recommended Technology Stack (Latest Stable)
+
+- **Mobile**: React Native + TypeScript
+- **Web UI**: React (preferred) or Angular + TypeScript
+- **Backend**: Java 21 + Spring Boot 3.x
+- **Database**: MySQL 8.x
+- **API Style**: REST + OpenAPI/Swagger
+- **Security**: Spring Security + JWT/OAuth2
+- **DevOps**: Docker + CI/CD + cloud deployment templates
+
+---
+
+## Required Attachments / Deliverables
+
+Please ensure the following content is included in the repository (or linked from project docs):
+
+1. **Wireframes of the UI pages**
+2. **Design & Architecture document**
+3. **Scalable database structure (Schema/ERD)**
+4. **API Documentation (Swagger/OpenAPI specs)**
+5. **Cloud-ready deployment model (Architecture diagram)**
+
+---
+
+## Contribution Notes
+
+- Follow the folder structure defined above.
+- Keep modules decoupled and API-first.
+- Use environment-specific config files.
+- Add documentation for every major feature or architecture change.

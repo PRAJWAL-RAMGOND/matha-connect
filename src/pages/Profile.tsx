@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { User, Bell, Heart, LogOut, ChevronRight, Shield, Settings2 } from "lucide-react";
+import { User, Bell, Heart, LogOut, ChevronRight, Shield } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const profileMenu = [

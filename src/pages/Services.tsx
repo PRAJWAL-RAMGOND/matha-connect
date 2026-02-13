@@ -43,6 +43,7 @@ const Services = () => {
 
       <div className="mt-4 grid grid-cols-2 gap-3 px-4">
         {visibleServices.map((service, index) => (
+        {services.map((service, index) => (
           <motion.button
             key={service.label}
             initial={{ opacity: 0, y: 20 }}
@@ -71,6 +72,7 @@ const Services = () => {
         <h2 className="mb-3 font-display text-lg font-semibold text-foreground">Popular Sevas</h2>
         <div className="space-y-2">
           {(visibility["services.seva"] ? sevas : []).map((seva, index) => (
+          {sevas.map((seva, index) => (
             <motion.div
               key={seva.name}
               initial={{ opacity: 0, x: -10 }}

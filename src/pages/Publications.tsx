@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, Book, FileText, Mic, Download, ExternalLink } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 
 interface Publication {
@@ -17,6 +17,42 @@ interface Publication {
   published_year: number | null;
 }
 
+const fallbackPublications: Publication[] = [
+  {
+    id: "p1",
+    title: "Dvaita Siddhanta Primer",
+    author: "Matha Editorial Team",
+    description: "Introductory reference for youth and beginners.",
+    type: "book",
+    language: "English",
+    cover_url: null,
+    file_url: null,
+    published_year: 2025,
+  },
+  {
+    id: "p2",
+    title: "Sri Vadiraja Theertha - Selected Pravachanas",
+    author: "Compilation Desk",
+    description: "Audio discourse summaries and key points.",
+    type: "pravachana",
+    language: "Kannada",
+    cover_url: null,
+    file_url: null,
+    published_year: 2024,
+  },
+  {
+    id: "p3",
+    title: "Understanding Panchanga for Daily Practice",
+    author: "Scholars Wing",
+    description: "Practical guide for tithi, vaara, nakshatra and muhurtas.",
+    type: "article",
+    language: "English",
+    cover_url: null,
+    file_url: null,
+    published_year: 2026,
+  },
+];
+
 const Publications = () => {
   const navigate = useNavigate();
   const [publications, setPublications] = useState<Publication[]>([]);
@@ -30,41 +66,55 @@ const Publications = () => {
 
   const fetchPublications = async () => {
     try {
+      if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+        setPublications(fallbackPublications);
+        return;
+      }
+
       const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/rest/v1/publications?select=*&order=created_at.desc`, {
         headers: {
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-        }
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
       });
       const data = await response.json();
-      setPublications(data || []);
+      setPublications(Array.isArray(data) && data.length ? data : fallbackPublications);
     } catch (error) {
       console.error("Error fetching publications:", error);
+      setPublications(fallbackPublications);
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredPublications = publications.filter(pub => {
-    const matchesSearch = pub.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         (pub.author && pub.author.toLowerCase().includes(searchQuery.toLowerCase()));
-    const matchesFilter = filter === "all" || pub.type === filter;
-    return matchesSearch && matchesFilter;
-  });
+  const filteredPublications = useMemo(
+    () =>
+      publications.filter((publication) => {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch =
+          publication.title.toLowerCase().includes(query) ||
+          (publication.author && publication.author.toLowerCase().includes(query));
+        const matchesFilter = filter === "all" || publication.type === filter;
+        return matchesSearch && matchesFilter;
+      }),
+    [publications, searchQuery, filter],
+  );
 
-  const getTypeIcon = (type: string) => {
+  const getTypeIcon = (type: Publication["type"]) => {
     switch (type) {
-      case "book": return Book;
-      case "pravachana": return Mic;
-      case "article": return FileText;
-      default: return Book;
+      case "book":
+        return Book;
+      case "pravachana":
+        return Mic;
+      case "article":
+        return FileText;
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-10 bg-gradient-maroon px-4 py-4">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="mb-4 flex items-center gap-3">
           <button onClick={() => navigate("/explore")} className="rounded-full p-1.5 hover:bg-maroon/20">
             <ArrowLeft size={20} className="text-maroon-foreground" />
           </button>
@@ -77,75 +127,68 @@ const Publications = () => {
         <Input
           placeholder="Search publications..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="rounded-xl border-maroon-foreground/20 bg-card/90 mb-3"
+          onChange={(event) => setSearchQuery(event.target.value)}
+          className="mb-3 rounded-xl border-maroon-foreground/20 bg-card/90"
         />
 
-        <Tabs value={filter} onValueChange={(v) => setFilter(v as typeof filter)} className="w-full">
+        <Tabs value={filter} onValueChange={(value) => setFilter(value as typeof filter)} className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-card/20">
-            <TabsTrigger value="all" className="data-[state=active]:bg-card text-xs">All</TabsTrigger>
-            <TabsTrigger value="book" className="data-[state=active]:bg-card text-xs">Books</TabsTrigger>
-            <TabsTrigger value="pravachana" className="data-[state=active]:bg-card text-xs">Pravachana</TabsTrigger>
-            <TabsTrigger value="article" className="data-[state=active]:bg-card text-xs">Articles</TabsTrigger>
+            <TabsTrigger value="all" className="text-xs data-[state=active]:bg-card">All</TabsTrigger>
+            <TabsTrigger value="book" className="text-xs data-[state=active]:bg-card">Books</TabsTrigger>
+            <TabsTrigger value="pravachana" className="text-xs data-[state=active]:bg-card">Pravachana</TabsTrigger>
+            <TabsTrigger value="article" className="text-xs data-[state=active]:bg-card">Articles</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
 
-      <div className="px-4 py-4 space-y-3 pb-6">
+      <div className="space-y-3 px-4 py-4 pb-6">
         {loading ? (
-          [...Array(4)].map((_, i) => (
-            <div key={i} className="h-32 animate-pulse rounded-xl bg-muted" />
-          ))
+          [...Array(4)].map((_, index) => <div key={index} className="h-32 animate-pulse rounded-xl bg-muted" />)
         ) : filteredPublications.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <Book size={48} className="text-muted-foreground mb-3" />
+            <Book size={48} className="mb-3 text-muted-foreground" />
             <p className="text-sm text-muted-foreground">No publications found</p>
           </div>
         ) : (
-          filteredPublications.map((pub, i) => {
-            const TypeIcon = getTypeIcon(pub.type);
+          filteredPublications.map((publication, index) => {
+            const TypeIcon = getTypeIcon(publication.type);
+
             return (
               <motion.div
-                key={pub.id}
+                key={publication.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="flex gap-3 rounded-xl bg-card p-4 shadow-temple"
+                transition={{ delay: index * 0.04 }}
+                className="flex gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-temple"
               >
-                <div className="h-20 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-secondary">
-                  {pub.cover_url ? (
-                    <img src={pub.cover_url} alt={pub.title} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <TypeIcon size={24} className="text-muted-foreground" />
-                    </div>
-                  )}
+                <div className="flex h-20 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-secondary">
+                  <TypeIcon size={24} className="text-muted-foreground" />
                 </div>
 
                 <div className="flex-1 space-y-1">
-                  <h3 className="font-display text-sm font-semibold text-foreground line-clamp-2">{pub.title}</h3>
-                  {pub.author && (
-                    <p className="text-xs text-muted-foreground">by {pub.author}</p>
-                  )}
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary capitalize">
-                      {pub.type}
-                    </span>
-                    <span className="text-[10px] text-muted-foreground">{pub.language}</span>
-                    {pub.published_year && (
-                      <span className="text-[10px] text-muted-foreground">{pub.published_year}</span>
-                    )}
-                  </div>
-                  {pub.description && (
-                    <p className="text-xs text-muted-foreground line-clamp-2">{pub.description}</p>
-                  )}
-                </div>
+                  <h3 className="line-clamp-2 font-display text-sm font-semibold text-foreground">{publication.title}</h3>
+                  {publication.author ? <p className="text-xs text-muted-foreground">by {publication.author}</p> : null}
+                  {publication.description ? <p className="line-clamp-2 text-xs text-muted-foreground">{publication.description}</p> : null}
 
-                {pub.file_url && (
-                  <button className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gradient-saffron transition-transform hover:scale-105">
-                    <Download size={16} className="text-saffron-foreground" />
-                  </button>
-                )}
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium capitalize text-primary">
+                      {publication.type}
+                    </span>
+                    <span className="text-[10px] text-muted-foreground">{publication.language}</span>
+                    {publication.published_year ? <span className="text-[10px] text-muted-foreground">{publication.published_year}</span> : null}
+                  </div>
+
+                  <div className="mt-2 flex items-center gap-3 text-xs">
+                    <button className="inline-flex items-center gap-1 font-medium text-primary hover:underline">
+                      View
+                      <ExternalLink size={12} />
+                    </button>
+                    <button className="inline-flex items-center gap-1 font-medium text-primary hover:underline">
+                      Download
+                      <Download size={12} />
+                    </button>
+                  </div>
+                </div>
               </motion.div>
             );
           })

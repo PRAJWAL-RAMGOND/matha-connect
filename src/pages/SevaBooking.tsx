@@ -12,12 +12,21 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 
 const sevaList = [
-  { id: "abhisheka", name: "Abhisheka Seva", price: 501, desc: "Sacred abhisheka to the Lord" },
-  { id: "anna", name: "Anna Santarpane", price: 1001, desc: "Feeding devotees & community" },
-  { id: "satyanarayana", name: "Satyanarayana Pooja", price: 2501, desc: "For prosperity & well-being" },
-  { id: "tulabhara", name: "Tulabhara", price: 1101, desc: "Offering equivalent weight in grains" },
-  { id: "kumkumarchana", name: "Kumkumarchana", price: 351, desc: "Worship with kumkum" },
-  { id: "navagraha", name: "Navagraha Homa", price: 3001, desc: "Planetary peace homa" },
+  { id: "s1", name: "06/03/2026 - ಗಂಧಾಲಂಕಾರ ವಿಶೇಷ ಸೇವೆ", price: 500, desc: "ವಿಶೇಷ ಸೇವೆ" },
+  { id: "s2", name: "04/03/2026 - ಕಲ್ಪಾಭಿಷೇಕೋತ್ಸವ ಸೇವೆ", price: 1000, desc: "ಉತ್ಸವ ಸೇವೆ" },
+  { id: "s3", name: "03/03/2026 - ರಥೋತ್ಸವ ಸೇವೆ", price: 1000, desc: "ಉತ್ಸವ ಸೇವೆ" },
+  { id: "s4", name: "02/03/2026 - ಭೂತರಾಜರ ರಂಗಪೂಜೆ ವಿಶೇಷ ಕಾಣಿಕೆ", price: 1000, desc: "ವಿಶೇಷ ಕಾಣಿಕೆ" },
+  { id: "s5", name: "ಒಂದು ದಿನದ ಸಂತರ್ಪಣೆ ಸೇವೆ (ಅನ್ನದಾನ ಸೇವೆ)", price: 5001, desc: "ಅನ್ನದಾನ ಸೇವೆ" },
+  { id: "s6", name: "ಮಹಾ ಸಹಸ್ರನಾಮ (ರಾತ್ರಿ ವಿಶೇಷ ಭೂತರಾಜ ಪೂಜಾ ಸೇವೆ)", price: 1500, desc: "ರಾತ್ರಿ ವಿಶೇಷ ಪೂಜಾ ಸೇವೆ" },
+  { id: "s7", name: "ತುಳಸಿ ಅರ್ಚನೆ (ಶ್ರೀ ಕೃಷ್ಣಾರ್ಪಣೆ ನಡೆವಿಗೆ)", price: 25, desc: "ತುಳಸಿ ಅರ್ಚನೆ ಸೇವೆ" },
+  { id: "s8", name: "ಪ್ರತ್ಯಕ್ಷ ಗೋದಾನ (ಉತ್ತಮ)", price: 25000, desc: "ಗೋದಾನ ಸೇವೆ" },
+  { id: "s9", name: "ಪ್ರತ್ಯಕ್ಷ ಗೋದಾನ (ಮಧ್ಯಮ)", price: 15000, desc: "ಗೋದಾನ ಸೇವೆ" },
+  { id: "s10", name: "ಗೋದಾನ (ರಕ್ಷಣೆ ಹೊಣೆತು)", price: 3000, desc: "ಗೋದಾನ ಸೇವೆ" },
+  { id: "s11", name: "ನಂದಾದೀಪ (ನವಸ 1 ರು)", price: 1200, desc: "ನಂದಾದೀಪ ಸೇವೆ" },
+  { id: "s12", name: "ನಂದಾದೀಪ (ತಿಂಗಳ 1 ರು)", price: 100, desc: "ನಂದಾದೀಪ ಸೇವೆ" },
+  { id: "s13", name: "ಶ್ರೀ ಭೂತರಾಜರ ವಿಶೇಷ ರಾತ್ರಿ ಪೂಜಾ", price: 101, desc: "ರಾತ್ರಿ ಪೂಜಾ ಸೇವೆ" },
+  { id: "s14", name: "ತುಲಾಭಾರ (ಸಾಮಾನ್ಯ ರೀತಿಗೆ ಮತ್ತು ತುಳಸಿ ಪ್ರತ್ಯೇಕ)", price: 100, desc: "ತುಲಾಭಾರ ಸೇವೆ" },
+  { id: "s15", name: "ಕುಂಕುಮಾರ್ಚನೆ (ದೇವರ ದೇವಿಗೆ)", price: 10, desc: "ಕುಂಕುಮಾರ್ಚನೆ ಸೇವೆ" },
 ];
 
 type PaymentMethod = "upi" | "card" | "netbanking";

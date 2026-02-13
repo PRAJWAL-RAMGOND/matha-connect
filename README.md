@@ -1,25 +1,33 @@
 # Hackathon-starter (Seva Platform)
 
-Hackathon Starter Repo
+Hackathon Starter Repository for the **Seva Platform**.
 
-Seva Platform is a modern, scalable, full-stack application designed to serve mobile users, web users, and backend services through a secure and modular architecture.
+Seva Platform is a scalable full-stack solution designed for:
+- mobile users,
+- web users, and
+- backend service integrations.
 
-This repository is the **starter blueprint** for the Seva Platform. It defines:
-- What the project is
-- How the repository is organized
-- What technologies (latest stable) should be used
-- The standard directory structure each module must follow
-
-The platform consists of:
-- A **mobile application** for Android and iOS
-- A **web application** for browser-based access
-- A **backend platform** providing APIs, business logic, and data persistence
-
-All components communicate through secure REST APIs and follow cloud-ready, production-grade design principles.
+This repository serves as a **starter blueprint** and implementation baseline. It defines:
+- platform scope,
+- architecture and boundaries,
+- recommended technology stack,
+- directory conventions to be followed by all teams,
+- required hackathon submission artifacts.
 
 ---
 
-## Repository Layout
+## 1) Platform Scope
+
+The target platform consists of:
+- **Seva Mobile App** (Android + iOS)
+- **Seva Web App** (browser access)
+- **Seva Backend Platform** (APIs, business rules, persistence)
+
+All client applications must communicate only through secured APIs.
+
+---
+
+## 2) Repository Structure (Target Standard)
 
 ```text
 .
@@ -31,9 +39,9 @@ All components communicate through secure REST APIs and follow cloud-ready, prod
 
 ---
 
-## High-Level Architecture
+## 3) High-Level Architecture
 
-> Both Mobile and Web clients communicate only with the backend APIs (clients do not talk to the database directly).
+> Clients do not communicate with database services directly.
 
 ```text
 Mobile App (React Native) ──┐
@@ -43,9 +51,9 @@ Web UI (React / Angular) ───┘
 
 ---
 
-## Application Project Structure to be Followed
+## 4) Module Structure to be Followed
 
-### `seva_mobile/`
+### 4.1 `seva_mobile/`
 
 ```text
 seva_mobile/
@@ -65,7 +73,7 @@ seva_mobile/
 └── tsconfig.json
 ```
 
-### `seva_ui/`
+### 4.2 `seva_ui/`
 
 ```text
 seva_ui/
@@ -83,7 +91,7 @@ seva_ui/
 └── tsconfig.json
 ```
 
-### `seva_platform/`
+### 4.3 `seva_platform/`
 
 ```text
 seva_platform/
@@ -111,33 +119,76 @@ seva_platform/
 
 ---
 
-## Recommended Technology Stack (Latest Stable)
+## 5) Recommended Technology Stack (Latest Stable)
 
 - **Mobile**: React Native + TypeScript
-- **Web UI**: React (preferred) or Angular + TypeScript
+- **Web UI**: React + TypeScript (Angular acceptable)
 - **Backend**: Java 21 + Spring Boot 3.x
 - **Database**: MySQL 8.x
-- **API Style**: REST + OpenAPI/Swagger
+- **API**: REST + OpenAPI (Swagger)
 - **Security**: Spring Security + JWT/OAuth2
-- **DevOps**: Docker + CI/CD + cloud deployment templates
+- **Infra / DevOps**: Docker, CI/CD, cloud-ready deployment templates
 
 ---
 
-## Required Attachments / Deliverables
+## 6) Current Implementation in This Repository (Web Starter)
 
-Please ensure the following content is included in the repository (or linked from project docs):
+This repository currently contains a working **web starter application** built with:
+- Vite
+- React + TypeScript
+- Tailwind CSS + shadcn/ui
+- Framer Motion
 
-1. **Wireframes of the UI pages**
+Current implemented modules/pages include:
+- Explore, Branches, Panchanga, Youth Quiz
+- Services (Seva Booking, Room Booking)
+- Profile, Notifications
+- Login and Signup routes
+
+> This acts as the `seva_ui` seed implementation and can be extracted into `/seva_ui` in a full mono-repo setup.
+
+---
+
+## 7) Local Setup (Current Web Starter)
+
+### Prerequisites
+- Node.js 18+
+- npm 9+
+
+### Install and Run
+
+```bash
+npm install
+npm run dev
+```
+
+### Build and Validate
+
+```bash
+npm run lint
+npm run test
+npm run build
+```
+
+---
+
+## 8) Mandatory Hackathon Submission Artifacts
+
+Please attach/provide links for the following:
+
+1. **Wireframes of UI pages**
 2. **Design & Architecture document**
 3. **Scalable database structure (Schema/ERD)**
-4. **API Documentation (Swagger/OpenAPI specs)**
-5. **Cloud-ready deployment model (Architecture diagram)**
+4. **API documentation (Swagger/OpenAPI specs)**
+5. **Cloud-ready deployment model (architecture diagram)**
 
 ---
 
-## Contribution Notes
+## 9) Engineering Guidelines
 
-- Follow the folder structure defined above.
-- Keep modules decoupled and API-first.
-- Use environment-specific config files.
-- Add documentation for every major feature or architecture change.
+- Follow the module/folder conventions defined above.
+- Keep architecture API-first and modular.
+- Use environment-based configuration.
+- Add documentation for every major feature or architectural decision.
+- Ensure lint, tests, and build pass before submission.
+

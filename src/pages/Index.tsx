@@ -8,6 +8,7 @@ import templeBell from "@/assets/temple-bell.jpg";
 import mathaLogo from "@/assets/matha-logo.png";
 import swamijiVishwothama from "@/assets/swamiji-vishwothama.png";
 import swamijiVishwavallabha from "@/assets/swamiji-vishwavallabha.png";
+import { useSectionVisibility } from "@/hooks/useSectionVisibility";
 
 const newsItems = [
   { id: 1, title: "Chaturmasya Vrata commences at Sode Matha", image: templeAmbiance },
@@ -29,10 +30,10 @@ const timings = [
 ];
 
 const socialLinks = [
-  { icon: Instagram, label: "Instagram", href: "#", color: "text-pink-600" },
-  { icon: Facebook, label: "Facebook", href: "#", color: "text-blue-600" },
-  { icon: Youtube, label: "YouTube", href: "#", color: "text-red-600" },
-  { icon: MessageCircle, label: "WhatsApp", href: "#", color: "text-green-600" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/", color: "text-pink-600" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/", color: "text-blue-600" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/", color: "text-red-600" },
+  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/918202521975", color: "text-green-600" },
 ];
 
 const fadeUp = {
@@ -46,6 +47,7 @@ const fadeUp = {
 
 const Index = () => {
   const navigate = useNavigate();
+  const visibility = useSectionVisibility();
 
   return (
     <div className="min-h-screen bg-background">
@@ -87,7 +89,7 @@ const Index = () => {
       </div>
 
       {/* Announcements Carousel */}
-      <motion.section
+      {visibility["home.announcements"] ? <motion.section
         initial="hidden"
         animate="visible"
         custom={0}
@@ -107,7 +109,7 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> : null}
 
       {/* Swamiji Section */}
       <motion.section
@@ -141,7 +143,7 @@ const Index = () => {
       </motion.section>
 
       {/* News */}
-      <motion.section
+      {visibility["home.news"] ? <motion.section
         initial="hidden"
         animate="visible"
         custom={2}
@@ -169,10 +171,10 @@ const Index = () => {
             </div>
           ))}
         </div>
-      </motion.section>
+      </motion.section> : null}
 
       {/* Darshana & Prasada Timings */}
-      <motion.section
+      {visibility["home.timings"] ? <motion.section
         initial="hidden"
         animate="visible"
         custom={3}
@@ -202,7 +204,7 @@ const Index = () => {
             </tbody>
           </table>
         </div>
-      </motion.section>
+      </motion.section> : null}
 
       {/* Social Media */}
       <motion.section
@@ -220,6 +222,8 @@ const Index = () => {
             <a
               key={link.label}
               href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex flex-col items-center gap-1 transition-transform hover:scale-110"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-card shadow-temple">

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { BookOpen, Image, MapPin, Users, Trophy, Scroll } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "@/components/SearchBar";
+import { useSectionVisibility } from "@/hooks/useSectionVisibility";
 
 const sections = [
   { icon: Users, label: "Guru Parampara", desc: "History & lineage of the Matha", color: "bg-gradient-maroon", route: "/explore/guru-parampara" },
@@ -14,6 +15,13 @@ const sections = [
 
 const Explore = () => {
   const navigate = useNavigate();
+  const visibility = useSectionVisibility();
+
+  const filteredSections = sections.filter((section) => {
+    if (section.route === "/explore/quiz") return visibility["explore.quiz"];
+    if (section.route === "/explore/panchanga") return visibility["explore.panchanga"];
+    return true;
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -25,7 +33,7 @@ const Explore = () => {
         <SearchBar />
       </div>
       <div className="mt-6 grid grid-cols-2 gap-3 px-4 pb-6">
-        {sections.map((item, i) => (
+        {filteredSections.map((item, i) => (
           <motion.button
             key={item.label}
             initial={{ opacity: 0, y: 20 }}
